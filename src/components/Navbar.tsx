@@ -81,23 +81,32 @@ function Navbar() {
               </span>
             </button>
           </nav>
-  
-          {menuOpen && (
-            <div className="absolute left-0 top-full w-full border-t border-[#12376b]/10 bg-white px-5 py-5 shadow-xl lg:hidden">
+            {menuOpen && (
+              <div className="absolute left-0 top-full w-full border-t border-[#12376b]/10 bg-white px-5 py-5 shadow-xl lg:hidden">
               <div className="flex flex-col divide-y divide-[#12376b]/10">
-                {["Learning", "Our school", "Student life", "News", "Admissions"].map((item) => (
-                  <a
-                    className="flex items-center justify-between py-4 font-bold"
-                    href={`#${item.toLowerCase().replace(/ /g, "-")}`}
-                    key={item}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {item} <Arrow diagonal />
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
+              {[
+                {name: "Home", path: "/"},
+                { name: "Learning", path: "/learning" },
+                { name: "Our school", path: "/our-school" },
+                { name: "Student life", path: "/student-life" },
+                { name: "News", path: "/news" },
+                { name: "Admissions", path: "/enquiry" },
+              ].map((item) => (
+          <Link
+          className="flex items-center justify-between py-4 font-bold"
+          to={item.path}
+          key={item.name}
+          onClick={() => setMenuOpen(false)}
+          >
+          {item.name}
+          <Arrow diagonal />
+        </Link>
+      ))}
+    </div>
+  </div>
+)}
+
+
         </header>
     </nav>
   );

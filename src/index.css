@@ -116,6 +116,51 @@ a {
   transform: translateY(-7px);
 }
 
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  color: #12376b;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  border: 1.5px solid rgb(18 55 107 / 14%);
+  border-radius: 1rem;
+  outline: none;
+  background: #f7f9fc;
+  padding: 0.9rem 1rem;
+  color: #12376b;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.form-field textarea {
+  resize: vertical;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: rgb(18 55 107 / 35%);
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: #2f86cf;
+  background: white;
+  box-shadow: 0 0 0 4px rgb(47 134 207 / 12%);
+}
+
 ::selection {
   background: #f6bd3c;
   color: #12376b;

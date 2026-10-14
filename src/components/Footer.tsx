@@ -1,4 +1,4 @@
-import React from "react";
+
 import SchoolMark from "../components/SchoolMark";
 
 function Footer() {

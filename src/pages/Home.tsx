@@ -2,7 +2,8 @@
     import { useState } from "react";
     import Navbar from "../components/Navbar";
     import Footer from "../components/Footer";
-    
+    import AnnouncementBar from "../components/AnnouncementBar";
+    import { useNavigate } from "react-router-dom";
     const photos = {
       writing:
         "https://images.unsplash.com/photo-1623287073501-8c849217c2fd?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHw2fHxoYXBweSUyMGRpdmVyc2UlMjBwcmltYXJ5JTIwc2Nob29sJTIwY2hpbGRyZW4lMjBsZWFybmluZyUyMHdyaXRpbmd8ZW58MXx8fHwxNzkxNjA3OTk2fDA&ixlib=rb-4.1.0&q=85&w=1200",
@@ -34,23 +35,11 @@
     
 
 function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
   
     return (
       <main className="min-h-screen bg-white text-[#12376b]">
-        <div className="bg-[#12376b] px-5 py-2.5 text-white">
-          <div className="mx-auto flex max-w-[1400px] items-center justify-center gap-3 text-center text-xs font-semibold sm:justify-between">
-            <p>Admissions are open for the 2025–26 school year</p>
-            <div className="hidden items-center gap-6 sm:flex">
-              <a className="text-white/75 hover:text-white" href="tel:+85512345678">+855 12 345 678</a>
-              <a className="text-white/75 hover:text-white" href="mailto:hello@forma.academy">hello@forma.academy</a>
-            </div>
-          </div>
-        </div>
-        
-  
-        <Navbar />
-  
         <section className="hero relative overflow-hidden bg-[#f7f9fc]">
           <div className="absolute left-[8%] top-14 h-3 w-3 rotate-45 bg-[#f6bd3c]" />
           <div className="absolute bottom-20 left-[46%] h-6 w-6 rotate-45 rounded-sm bg-[#f6bd3c]" />
@@ -222,13 +211,11 @@ function Home() {
                 Come see what learning can feel like.
               </h2>
             </div>
-            <a className="flex w-fit shrink-0 items-center gap-6 rounded-full bg-[#f6bd3c] px-8 py-5 font-extrabold text-[#12376b]" href="mailto:admissions@forma.academy">
+            <a className="flex w-fit shrink-0 items-center gap-6 rounded-full bg-[#f6bd3c] px-8 py-5 font-extrabold text-[#12376b]" href="/enquiry">
               Start your enquiry <Arrow />
             </a>
           </div>
         </section>
-  
-        <Footer />
       </main>
     );
 }

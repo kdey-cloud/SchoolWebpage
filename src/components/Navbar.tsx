@@ -1,6 +1,8 @@
 
     import { useState } from "react";
     import SchoolMark from "../components/SchoolMark";
+    import { useLocation } from "react-router-dom";
+    import { Link } from "react-router-dom";
     
     function Arrow({ diagonal = false }: { diagonal?: boolean }) {
       return (
@@ -18,7 +20,8 @@
     
    
 function Navbar() {
-    const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <nav className="navbar">
               <header className="relative z-30 border-b border-[#12376b]/10 bg-white">
@@ -39,21 +42,32 @@ function Navbar() {
               </div>
             </a>
   
-            <div className="hidden items-center gap-7 text-sm font-bold lg:flex">
-              {["Learning", "Our school", "Student life", "News"].map((item) => (
-                <a className="nav-link" href={`#${item.toLowerCase().replace(/ /g, "-")}`} key={item}>
-                  {item}
-                </a>
-              ))}
+            <div className="hidden items-center gap-7 text-sm font-bold lg:flex"> 
+              {[{name: "Home", path: "/"}, 
+                { name: "Learning", path: "/learning" }, 
+                { name: "Our school", path: "/our-school" }, 
+                { name: "Student life", path: "/student-life" }, 
+                { name: "News", path: "/news" }, 
+                ].map((item) => ( 
+                  <Link 
+                    className="nav-link" 
+                    to={item.path} 
+                    key={item.name} 
+                  > 
+                    {item.name} 
+                  </Link> 
+              ))} 
             </div>
-  
+
+            {location.pathname !== "/enquiry" && (
             <a
               className="hidden items-center gap-3 rounded-full bg-[#0758a6] px-6 py-3 text-sm font-bold text-white shadow-[0_5px_0_#d7e7f5] transition hover:-translate-y-0.5 lg:flex"
-              href="#admissions"
+              href="/enquiry"
             >
               Enquire now <Arrow />
             </a>
-  
+            )}
+
             <button
               aria-expanded={menuOpen}
               aria-label="Toggle navigation"

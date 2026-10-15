@@ -9,6 +9,9 @@ import {
 import Home from "./pages/Home";
 import Enquiry from "./pages/Enquiry";
 import News from "./pages/News";
+import Learning from "./pages/Learning";
+import OurSchool from "./pages/OurSchool";
+import StudentLife from "./pages/StudentLife";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -48,7 +51,34 @@ function AppContent() {
             </PageTransition>
           }
         />
+        <Route
+          path="/learning"
+          element={
+            <PageTransition>
+              <Learning />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/our-school"
+          element={
+            <PageTransition>
+              <OurSchool/>
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/student-life"
+          element={
+            <PageTransition>
+              <StudentLife/>
+            </PageTransition>
+          }
+        />
+
       </Routes>
+
+      
 
       <Footer />
     </div>

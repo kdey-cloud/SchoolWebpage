@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { supabase } from "../utils/supabase";
 
 function Arrow() {
   return (
@@ -39,6 +40,54 @@ function DetailIcon({ type }: { type: "clock" | "mail" | "visit" }) {
 
 function Enquiry() {
   const [enquirySent, setEnquirySent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  async function handleSubmit(
+  event: React.FormEvent<HTMLFormElement>
+) {
+  event.preventDefault();
+
+  if (isSubmitting) return;
+
+  setIsSubmitting(true);
+  setErrorMessage("");
+
+  const form = event.currentTarget;
+  const formData = new FormData(form);
+
+  const enquiry = {
+    parent_name: String(formData.get("parentName") ?? "").trim(),
+    email: String(formData.get("email") ?? "").trim(),
+    phone: String(formData.get("phone") ?? "").trim() || null,
+    child_name: String(formData.get("childName") ?? "").trim(),
+    child_age: Number(formData.get("childAge")),
+    start_date: String(formData.get("startDate") ?? ""),
+    message: String(formData.get("message") ?? "").trim() || null,
+    consent: formData.get("consent") === "on",
+  };
+
+  try {
+    const { error } = await supabase
+      .from("admissions_enquiries")
+      .insert(enquiry);
+
+    if (error) {
+      throw error;
+    }
+
+    setEnquirySent(true);
+    form.reset();
+  } catch (error) {
+    console.error("Failed to submit enquiry:", error);
+
+    setErrorMessage(
+      "We couldn't submit your enquiry. Please try again."
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+}
 
   return (
     <section className="relative min-h-[calc(100vh-9.5rem)] overflow-hidden bg-[#edf5fc] px-5 py-12 sm:px-8 lg:px-10 lg:py-20">
@@ -116,13 +165,9 @@ function Enquiry() {
                   Fields marked with an asterisk are required.
                 </p>
               </div>
-
               <form
                 className="grid gap-5 sm:grid-cols-2"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  setEnquirySent(true);
-                }}
+                onSubmit={handleSubmit}
               >
                 <label className="form-field">
                   <span>Parent or guardian name *</span>
@@ -174,8 +219,13 @@ function Enquiry() {
                   <p className="max-w-xs text-xs leading-relaxed text-[#12376b]/45">
                     Your details are kept private and used only to respond to your enquiry.
                   </p>
-                  <button className="primary-button justify-center border-0" type="submit">
-                    Send my enquiry <Arrow />
+                  <button
+                    className="primary-button justify-center border-0"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Sending..." : "Send my enquiry"}
+                    {!isSubmitting && <Arrow />}
                   </button>
                 </div>
               </form>
@@ -184,6 +234,7 @@ function Enquiry() {
         </div>
       </div>
     </section>
+    
   );
 }
 

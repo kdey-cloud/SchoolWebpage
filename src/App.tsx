@@ -78,7 +78,6 @@ function AppContent() {
 
       </Routes>
 
-      
 
       <Footer />
     </div>
